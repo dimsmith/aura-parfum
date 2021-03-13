@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "725251779796",
+    "firebase_url": "https://auraparfumrework.firebaseio.com",
+    "project_id": "auraparfumrework",
+    "storage_bucket": "auraparfumrework.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725251779796:android:3614183e4c71fd9c6f9f41",
+        "android_client_info": {
+          "package_name": "com.github.dimsmith.auraparfum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "725251779796-484tt759m83mc74gqd45869uhtb694sb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.github.dimsmith.auraparfum",
+            "certificate_hash": "11faf34972026c59a6b45e1312ef2a4f56973dd2"
+          }
+        },
+        {
+          "client_id": "725251779796-heckajb130preksj8jrlhfdbva44b8e4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCfRvJ38-tpFhKZiGvvssdU8s4eNUmyy4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "725251779796-heckajb130preksj8jrlhfdbva44b8e4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725251779796:android:acd4d10b65b6c44c6f9f41",
+        "android_client_info": {
+          "package_name": "com.github.irvanurhakim93"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "725251779796-hja1g4t5b1cjfkikj8mgtkaaaapnifto.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.github.irvanurhakim93",
+            "certificate_hash": "95ab20e57bf0ebd025a27787d91f34bd79806890"
+          }
+        },
+        {
+          "client_id": "725251779796-mttfgv5l4iulolggciqorfgm7jigpmt5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.github.irvanurhakim93",
+            "certificate_hash": "f970bbc79e65f7682a3dce03532d810b7760c66b"
+          }
+        },
+        {
+          "client_id": "725251779796-heckajb130preksj8jrlhfdbva44b8e4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCfRvJ38-tpFhKZiGvvssdU8s4eNUmyy4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "725251779796-heckajb130preksj8jrlhfdbva44b8e4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
