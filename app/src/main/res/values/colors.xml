@@ -7,6 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="shimmer_item_color">#DCDCDC</color>
+    <color name="placeholder_shimmer">#C1BEC6</color>
+    <color name="shimmer_item_color">@color/placeholder_shimmer</color>
     <color name="transparant">#00000000</color>
+    <color name="background">#DFDFDF</color>
 </resources>

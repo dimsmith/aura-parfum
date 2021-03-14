@@ -1,4 +1,4 @@
-package com.github.dimsmith.auraparfum.activities.main
+package com.github.dimsmith.auraparfum.views.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

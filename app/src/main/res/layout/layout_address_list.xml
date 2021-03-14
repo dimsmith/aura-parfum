@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/selectableItemBackground"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_location"
+        app:tint="@color/purple_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/addressee_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            tools:text="Addressee" />
+
+        <TextView
+            android:id="@+id/address_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Address" />
+
+        <TextView
+            android:id="@+id/city_postal_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="City - 1245" />
+
+        <TextView
+            android:id="@+id/phone_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="+62 0000000" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/is_primary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/chip_rounded"
+        android:padding="5dp"
+        android:text="@string/primary_address"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,4 +3,8 @@
     <string name="home_label">Home</string>
     <string name="cart_label">Cart</string>
     <string name="account_label">Account</string>
+    <string name="addresses_label">My Addresses</string>
+    <string name="orders_label">My Orders</string>
+    <string name="account_settings_label">My Account</string>
+    <string name="primary_address">Primary</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.github.dimsmith.auraparfum.common
+package com.github.dimsmith.auraparfum.components
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

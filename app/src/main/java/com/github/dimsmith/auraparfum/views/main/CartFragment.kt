@@ -1,4 +1,4 @@
-package com.github.dimsmith.auraparfum.fragments
+package com.github.dimsmith.auraparfum.views.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.github.dimsmith.auraparfum.R
-import com.github.dimsmith.auraparfum.common.recyclerview.GenericListViewAdapter
+import com.github.dimsmith.auraparfum.components.recyclerview.GenericListViewAdapter
 
 class CartFragment : Fragment() {
     private lateinit var listView: ListView

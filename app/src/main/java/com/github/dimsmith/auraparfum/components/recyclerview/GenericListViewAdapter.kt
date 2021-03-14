@@ -1,11 +1,8 @@
-package com.github.dimsmith.auraparfum.common.recyclerview
+package com.github.dimsmith.auraparfum.components.recyclerview
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.TextView
-import com.github.dimsmith.auraparfum.R
 
 abstract class GenericListViewAdapter<T> : BaseAdapter() {
     private var _items = listOf<T>()
