@@ -9,5 +9,25 @@
         android:id="@+id/addressListFragment"
         android:name="com.github.dimsmith.auraparfum.views.address.AddressListFragment"
         android:label="@string/addresses_label"
-        tools:layout="@layout/fragment_address_list" />
+        tools:layout="@layout/fragment_address_list">
+        <action
+            android:id="@+id/action_addressListFragment_to_addressFormFragment"
+            app:destination="@id/addressFormFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressFormFragment"
+        android:name="com.github.dimsmith.auraparfum.views.address.AddressFormFragment"
+        android:label="{action} Address"
+        tools:layout="@layout/fragment_address_form">
+        <argument
+            android:name="action"
+            app:nullable="false"
+            app:argType="string"
+            android:defaultValue="Add" />
+        <action
+            android:id="@+id/action_addressFormFragment_to_addressListFragment"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
+            app:destination="@id/addressListFragment" />
+    </fragment>
 </navigation>

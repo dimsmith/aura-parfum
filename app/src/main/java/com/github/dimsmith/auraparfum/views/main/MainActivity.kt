@@ -8,6 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.github.dimsmith.auraparfum.R
+import com.github.dimsmith.auraparfum.common.makeToast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -31,5 +32,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    private var backPressedCount = 0L
+    override fun onBackPressed() {
+        if (backPressedCount + 2000 > System.currentTimeMillis()) finish()
+        else {
+            this.makeToast("Press back again to exit")
+            backPressedCount += System.currentTimeMillis()
+        }
     }
 }

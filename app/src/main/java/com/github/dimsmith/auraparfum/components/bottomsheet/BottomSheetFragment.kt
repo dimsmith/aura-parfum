@@ -55,11 +55,8 @@ class BottomSheetFragment<T>(
         val bottomListView: ListView = view.findViewById(R.id.list_bottom_sheet)
         bottomListView.adapter = adapter
         bottomListView.setOnItemClickListener { _, _, position, _ ->
-            if (menus[position].key == "cancel") {
-                this.dismiss()
-            } else {
-                listener.onSelectedItemClick(menus[position].key, onItem)
-            }
+            listener.onSelectedItemClick(menus[position].key, onItem)
+            this.dismiss()
         }
 
     }

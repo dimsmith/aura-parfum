@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.github.dimsmith.auraparfum.R
 
 class AddressActivity : AppCompatActivity() {
@@ -12,9 +14,11 @@ class AddressActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_address)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         navController = findNavController(R.id.address_nav_host)
-
+        val appBarConfiguration = AppBarConfiguration.Builder()
+            .setFallbackOnNavigateUpListener { true }.build()
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onSupportNavigateUp(): Boolean {

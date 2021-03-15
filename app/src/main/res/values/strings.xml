@@ -7,4 +7,11 @@
     <string name="orders_label">My Orders</string>
     <string name="account_settings_label">My Account</string>
     <string name="primary_address">Primary</string>
+    <string name="full_name_input_hint">Full name</string>
+    <string name="address_input_hint">Address</string>
+    <string name="city_input_hint">City</string>
+    <string name="postal_code_input_hint">Postal Code</string>
+    <string name="phone_input_hint">Phone</string>
+    <string name="note_input_hint">Note</string>
+    <string name="save_label">Save</string>
 </resources>

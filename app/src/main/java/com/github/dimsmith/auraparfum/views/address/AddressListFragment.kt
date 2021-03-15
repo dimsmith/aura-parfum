@@ -4,17 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.dimsmith.auraparfum.R
 import com.github.dimsmith.auraparfum.common.MenuOption
 import com.github.dimsmith.auraparfum.common.makeToast
+import com.github.dimsmith.auraparfum.common.showAlertDialog
 import com.github.dimsmith.auraparfum.components.bottomsheet.BottomSheetFragment
 import com.github.dimsmith.auraparfum.components.bottomsheet.BottomSheetListener
 import com.github.dimsmith.auraparfum.components.recyclerview.GenericRecyclerViewAdapter
 import com.github.dimsmith.auraparfum.components.recyclerview.MyDividerRecyclerView
 import com.github.dimsmith.auraparfum.data.model.Address
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class AddressListFragment : Fragment(), BottomSheetListener {
     override fun onCreateView(
@@ -23,6 +27,7 @@ class AddressListFragment : Fragment(), BottomSheetListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_address_list, container, false)
         setupAddressList(view)
+        setupAddAddress(view)
         return view
     }
 
@@ -30,8 +35,8 @@ class AddressListFragment : Fragment(), BottomSheetListener {
         val recyclerView: RecyclerView = view.findViewById(R.id.address_recycler_view)
 
         val addresses = arrayListOf<Address>()
-        for (i in 0..3) {
-            val isPrimary = i == 2
+        for (i in 0..10) {
+            val isPrimary = i == 3
             addresses.add(
                 Address(
                     "Addressee #$i",
@@ -80,7 +85,7 @@ class AddressListFragment : Fragment(), BottomSheetListener {
         val availableMenus = mutableListOf<MenuOption>()
         if (!item.isPrimary) availableMenus.add(
             0,
-            MenuOption(R.drawable.ic_home, "primary", "Make Primary")
+            MenuOption(R.drawable.ic_done, "primary", "Make Primary")
         )
         availableMenus.add(MenuOption(R.drawable.ic_update, "update", "Update"))
         availableMenus.add(MenuOption(R.drawable.ic_trash, "delete", "Delete"))
@@ -88,12 +93,39 @@ class AddressListFragment : Fragment(), BottomSheetListener {
             .show(requireActivity().supportFragmentManager, BottomSheetFragment.TAG)
     }
 
+    private fun setupAddAddress(view: View) {
+        val fab: FloatingActionButton = view.findViewById(R.id.add_address_fab)
+        fab.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_addressListFragment_to_addressFormFragment, bundleOf(
+                    "action" to "Add"
+                )
+            )
+        }
+    }
+
     override fun <T> onSelectedItemClick(action: String, item: T) {
         when (item) {
             is Address -> {
-                val tmp = "$action ${item.address}"
-                requireContext().makeToast(tmp)
-
+                when (action) {
+                    "update" -> {
+                        findNavController().navigate(
+                            R.id.action_addressListFragment_to_addressFormFragment, bundleOf(
+                                "action" to "Update",
+                                "address" to item
+                            )
+                        )
+                    }
+                    "delete" -> {
+                        requireContext().showAlertDialog(
+                            "Are you sure, want to delete this address?"
+                        ) { dialog, which -> requireContext().makeToast("DELETED") }
+                    }
+                    else -> {
+                        val tmp = "$action ${item.address}"
+                        requireContext().makeToast(tmp)
+                    }
+                }
             }
         }
     }
