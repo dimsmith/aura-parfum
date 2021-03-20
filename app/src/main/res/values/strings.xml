@@ -14,4 +14,19 @@
     <string name="phone_input_hint">Phone</string>
     <string name="note_input_hint">Note</string>
     <string name="save_label">Save</string>
+    <string name="total_payment_label">Harga Total</string>
+    <string name="pay_label">Bayar</string>
+    <string name="sign_in_label">Sign In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_up_label">Sign Up</string>
+    <string name="welcome_back_label">Welcome Back!</string>
+    <string name="join_with_us">Join with us!</string>
+    <string name="forgot_your_password_label">Forgot your password?</string>
+    <string name="reset_here_label">Reset Here</string>
+    <string name="loading_label">Please wait a moment</string>
+    <string name="first_name_label">First Name</string>
+    <string name="last_name_label">Last Name</string>
+    <string name="phone_number_label">Phone</string>
+    <string name="reset_password">Reset Password</string>
 </resources>

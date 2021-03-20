@@ -38,9 +38,34 @@
         <item name="shapeAppearanceOverlay">@style/Theme.AppearanceOverlay</item>
     </style>
 
+    <style name="Theme.AuthTextInputLayout" parent="Theme.TextInputLayout">
+        <item name="shapeAppearanceOverlay">@style/Theme.FlatOverlay</item>
+        <item name="android:layout_marginBottom">15dp</item>
+    </style>
+
+
+    <style name="Theme.FlatOverlay" parent="">
+        <item name="cornerFamily">cut</item>
+        <item name="borderWidth">0dp</item>
+    </style>
+
+
     <style name="Theme.AppearanceOverlay" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">15dp</item>
 
+    </style>
+
+    <style name="Theme.Fullscreen" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="Theme.ProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTint">@color/purple_200</item>
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:indeterminate">true</item>
     </style>
 </resources>

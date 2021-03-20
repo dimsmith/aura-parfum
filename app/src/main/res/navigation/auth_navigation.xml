@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_navigation"
+    app:startDestination="@id/signinFragment">
+
+    <fragment
+        android:id="@+id/signinFragment"
+        android:name="com.github.dimsmith.auraparfum.views.auth.SigninFragment"
+        tools:layout="@layout/fragment_sign_in"
+        android:label="SigninFragment">
+        <action
+            android:id="@+id/action_signinFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signinFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_sign_up"
+        android:id="@+id/signUpFragment"
+        android:name="com.github.dimsmith.auraparfum.views.auth.SignUpFragment"
+        android:label="SignUpFragment" />
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        tools:layout="@layout/fragment_forgot_password"
+        android:name="com.github.dimsmith.auraparfum.views.auth.ForgotPasswordFragment"
+        android:label="ForgotPasswordFragment" />
+</navigation>

@@ -10,21 +10,23 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.github.dimsmith.auraparfum.R
 import com.github.dimsmith.auraparfum.common.MenuOption
-import com.github.dimsmith.auraparfum.common.makeToast
 import com.github.dimsmith.auraparfum.common.showAlertDialog
 import com.github.dimsmith.auraparfum.common.toActivity
 import com.github.dimsmith.auraparfum.components.recyclerview.GenericListViewAdapter
-import com.github.dimsmith.auraparfum.data.model.User
 import com.github.dimsmith.auraparfum.views.address.AddressActivity
+import com.github.dimsmith.auraparfum.views.auth.AuthActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 
 class AccountFragment : Fragment() {
     private val fireStorage = FirebaseStorage.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
 
     override fun onCreateView(
@@ -40,22 +42,18 @@ class AccountFragment : Fragment() {
 
     private fun setupProfile(view: View) {
         // Photo profile
-        val avatarUrl = "gs://auraparfumrework.appspot.com/users/avatar1.jpg"
+        val userFirebase = auth.currentUser!!
         val profileImage: ImageView = view.findViewById(R.id.profile_img)
-        val ref = fireStorage.getReferenceFromUrl(avatarUrl)
+        val ref = fireStorage.getReferenceFromUrl(userFirebase.photoUrl?.toString()!!)
         Glide.with(requireContext())
             .load(ref)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .circleCrop()
             .into(profileImage)
-
-        // Data Profile with dummy
-        // TODO: fetch from firebase
-        val user = User("UID", "Dimas", "R Ismail", "dimsmith@gmail.com")
         val fullName: TextView = view.findViewById(R.id.full_name)
         val email: TextView = view.findViewById(R.id.email)
-        fullName.text = user.fullName
-        email.text = user.email
+        fullName.text = userFirebase.displayName
+        email.text = userFirebase.email
 
     }
 
@@ -101,7 +99,8 @@ class AccountFragment : Fragment() {
 
     private fun requestLogout() {
         requireContext().showAlertDialog("Are you sure, want to logout?") { _, _ ->
-            requireContext().makeToast("TODO: Logout action")
+            auth.signOut()
+            requireActivity().toActivity(AuthActivity::class.java, bundleOf(), true)
         }
     }
 }
