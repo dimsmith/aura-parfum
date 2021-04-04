@@ -21,7 +21,7 @@ class CartFragment : Fragment(), CartAdapter.CartListener {
     private lateinit var paymentBtn: Button
     private lateinit var cartAdapter: CartAdapter
     private val carts = listOf(
-        Cart(Product(1, "Lacoste T-Shirt Premium Original Anti Fake", 10000.0), 5),
+        Cart(Product(1, "Lacoste T-Shirt Premium Original Anti Fake", 10000.0), 1),
         Cart(Product(2, "Product-002", 20000.0), 10),
         Cart(Product(3, "Product-003", 30000.0), 15),
     )
@@ -42,7 +42,7 @@ class CartFragment : Fragment(), CartAdapter.CartListener {
 
 
 
-        cartAdapter = CartAdapter(this)
+        cartAdapter = CartAdapter(requireContext(), this)
         cartAdapter.setItems(carts)
         val myLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.apply {
@@ -53,18 +53,8 @@ class CartFragment : Fragment(), CartAdapter.CartListener {
         grandTotalText.text = formatCurrency(carts.sumByDouble { (it.qty * it.product.price) })
     }
 
-    override fun onQtyHasChanged(cart: Cart, isIncrement: Boolean) {
-        val updates = arrayListOf<Cart>()
-        updates.addAll(carts)
-
-        val find = updates.find { it.product.id == cart.product.id }
-        find?.let {
-            if (isIncrement) {
-                it.qty += 1
-            } else {
-                it.qty -= 1
-            }
-        }
-        cartAdapter.setItems(updates)
+    override fun onQtyHasChanged(items: List<Cart>) {
+        grandTotalText.text = formatCurrency(items.sumByDouble { (it.qty * it.product.price) })
+        cartAdapter.setItems(items)
     }
 }

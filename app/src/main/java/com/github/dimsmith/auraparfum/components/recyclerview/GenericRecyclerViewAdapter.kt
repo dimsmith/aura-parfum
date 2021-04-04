@@ -9,13 +9,13 @@ import com.github.dimsmith.auraparfum.components.DiffUtilList
 
 abstract class GenericRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder> :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    protected var _items: List<T> = arrayListOf()
+    protected var _items: MutableList<T> = mutableListOf()
 
     fun setItems(items: List<T>) {
         val diffUtil = DiffUtilList(_items, items)
         val diffResult = DiffUtil.calculateDiff(diffUtil)
+        _items = items.toMutableList()
         diffResult.dispatchUpdatesTo(this)
-        _items = items
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
