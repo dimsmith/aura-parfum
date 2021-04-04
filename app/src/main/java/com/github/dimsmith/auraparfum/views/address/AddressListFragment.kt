@@ -1,16 +1,20 @@
 package com.github.dimsmith.auraparfum.views.address
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.dimsmith.auraparfum.R
+import com.github.dimsmith.auraparfum.common.Constanta.DEFAULT_ERROR_MESSAGE
 import com.github.dimsmith.auraparfum.common.MenuOption
+import com.github.dimsmith.auraparfum.common.MyResult
 import com.github.dimsmith.auraparfum.common.makeToast
 import com.github.dimsmith.auraparfum.common.showAlertDialog
 import com.github.dimsmith.auraparfum.components.bottomsheet.BottomSheetFragment
@@ -19,36 +23,37 @@ import com.github.dimsmith.auraparfum.components.recyclerview.GenericRecyclerVie
 import com.github.dimsmith.auraparfum.components.recyclerview.MyDividerRecyclerView
 import com.github.dimsmith.auraparfum.data.model.Address
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class AddressListFragment : Fragment(), BottomSheetListener {
+    private lateinit var viewModel: AddressViewModel
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_address_list, container, false)
-        setupAddressList(view)
         setupAddAddress(view)
         return view
     }
 
-    private fun setupAddressList(view: View) {
-        val recyclerView: RecyclerView = view.findViewById(R.id.address_recycler_view)
-
-        val addresses = arrayListOf<Address>()
-        for (i in 0..10) {
-            val isPrimary = i == 3
-            addresses.add(
-                Address(
-                    "Addressee #$i",
-                    "Phone #$i",
-                    "Address #$i",
-                    "City #$i",
-                    "Postal Code #$i",
-                    "Notes #$i",
-                    isPrimary
-                )
-            )
+    @ExperimentalCoroutinesApi
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(AddressViewModel::class.java)
+        viewModel.fetchAddress.observe(viewLifecycleOwner) { myResult ->
+            when(myResult) {
+                is MyResult.Success -> {
+                    setupAddressList(view, myResult.data)
+                }
+                is MyResult.Failure -> requireContext().makeToast(myResult.ex.message ?: DEFAULT_ERROR_MESSAGE)
+            }
         }
+    }
+
+    private fun setupAddressList(view: View, addresses: List<Address>) {
+        val recyclerView: RecyclerView = view.findViewById(R.id.address_recycler_view)
         val adapter = object : GenericRecyclerViewAdapter<Address, AddressViewHolder>() {
             override fun getLayout(position: Int, item: Address): Int {
                 return R.layout.layout_address_list
@@ -58,12 +63,15 @@ class AddressListFragment : Fragment(), BottomSheetListener {
                 return AddressViewHolder(view)
             }
 
+            @SuppressLint("SetTextI18n")
             override fun onBindViewHolderParent(holder: AddressViewHolder, item: Address) {
                 holder.addresseeText.text = item.addressee
                 holder.addressText.text = item.address
-                holder.cityPostalText.text = item.cityPostalDisplay
+                holder.cityPostalText.text = "${item.city} - ${item.postalCode}"
                 holder.phoneText.text = item.phone
-                holder.isPrimaryText.visibility = if (item.isPrimary) View.VISIBLE else View.GONE
+                item.isPrimary?.let {
+                    holder.isPrimaryText.visibility = if (it) View.VISIBLE else View.GONE
+                }
             }
 
             override fun onClick(item: Address) {
@@ -71,8 +79,6 @@ class AddressListFragment : Fragment(), BottomSheetListener {
             }
         }
         adapter.setItems(addresses)
-
-
         val layoutManager = LinearLayoutManager(requireContext())
         val itemDivider = MyDividerRecyclerView(requireContext(), layoutManager.orientation)
         recyclerView.layoutManager = layoutManager
@@ -83,10 +89,9 @@ class AddressListFragment : Fragment(), BottomSheetListener {
 
     private fun showAddressBottomSheet(item: Address) {
         val availableMenus = mutableListOf<MenuOption>()
-        if (!item.isPrimary) availableMenus.add(
-            0,
-            MenuOption(R.drawable.ic_done, "primary", "Make Primary")
-        )
+        item.isPrimary?.let {
+            if (!it) availableMenus.add(0, MenuOption(R.drawable.ic_done, "primary", "Make Primary"))
+        }
         availableMenus.add(MenuOption(R.drawable.ic_update, "update", "Update"))
         availableMenus.add(MenuOption(R.drawable.ic_trash, "delete", "Delete"))
         BottomSheetFragment.getInstance(availableMenus, this, item, "Action")

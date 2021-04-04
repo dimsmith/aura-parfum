@@ -3,14 +3,15 @@ package com.github.dimsmith.auraparfum.data.model
 import java.io.Serializable
 
 data class Address(
-    val addressee: String,
-    val phone: String,
-    val address: String,
-    val city: String,
-    val postalCode: String,
+    val addressee: String? = null,
+    val phone: String? = null,
+    val address: String? = null,
+    @JvmField
+    val city: String? = null,
+    @JvmField
+    val postalCode: Long? = null,
     val note: String = "",
-    val isPrimary: Boolean
-) : Serializable {
-    val countryCode: String = "IDN"
-    val cityPostalDisplay: String = "$city - $postalCode"
-}
+    val countryCode: String? = null,
+    @JvmField
+    val isPrimary: Boolean? = null
+) : Serializable

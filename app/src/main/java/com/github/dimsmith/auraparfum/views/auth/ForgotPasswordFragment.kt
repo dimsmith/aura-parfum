@@ -15,6 +15,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.github.dimsmith.auraparfum.R
+import com.github.dimsmith.auraparfum.common.*
+import com.github.dimsmith.auraparfum.common.Constanta.DEFAULT_ERROR_MESSAGE
 import com.github.dimsmith.auraparfum.common.awaitTaskCompletable
 import com.github.dimsmith.auraparfum.common.hideKeyboard
 import com.github.dimsmith.auraparfum.common.initProgressBar
@@ -105,7 +107,7 @@ class ForgotPasswordFragment : Fragment() {
             else loader.dismiss()
         }
         vm.exception.observe(viewLifecycleOwner) {
-            requireActivity().makeToast(it.message ?: "Ops, something error!")
+            requireActivity().makeToast(it.message ?: DEFAULT_ERROR_MESSAGE)
         }
     }
 
