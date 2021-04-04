@@ -9,6 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="placeholder_shimmer">#C1BEC6</color>
     <color name="shimmer_item_color">@color/placeholder_shimmer</color>
-    <color name="transparant">#00000000</color>
+    <color name="transparent">#00000000</color>
     <color name="background">#DFDFDF</color>
 </resources>

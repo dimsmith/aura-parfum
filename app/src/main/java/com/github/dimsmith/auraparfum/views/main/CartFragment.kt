@@ -4,14 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.dimsmith.auraparfum.R
-import com.github.dimsmith.auraparfum.components.recyclerview.GenericListViewAdapter
+import com.github.dimsmith.auraparfum.common.formatCurrency
+import com.github.dimsmith.auraparfum.data.model.Cart
+import com.github.dimsmith.auraparfum.data.model.Product
+import com.github.dimsmith.auraparfum.views.cart.CartAdapter
 
-class CartFragment : Fragment() {
-    private lateinit var listView: ListView
+class CartFragment : Fragment(), CartAdapter.CartListener {
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var grandTotalText: TextView
+    private lateinit var paymentBtn: Button
+    private lateinit var cartAdapter: CartAdapter
+    private val carts = listOf(
+        Cart(Product(1, "Lacoste T-Shirt Premium Original Anti Fake", 10000.0), 5),
+        Cart(Product(2, "Product-002", 20000.0), 10),
+        Cart(Product(3, "Product-003", 30000.0), 15),
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,23 +36,35 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        listView = view.findViewById(R.id.cart_list_view)
+        recyclerView = view.findViewById(R.id.cart_recycler_view)
+        grandTotalText = view.findViewById(R.id.grand_total_txt)
+        paymentBtn = view.findViewById(R.id.payment_btn)
 
-        val data = arrayListOf<String>()
-        for (i in 0..10) {
-            data.add("data #$i")
+
+
+        cartAdapter = CartAdapter(this)
+        cartAdapter.setItems(carts)
+        val myLayoutManager = LinearLayoutManager(requireContext())
+        recyclerView.apply {
+            layoutManager = myLayoutManager
+            adapter = cartAdapter
+            setHasFixedSize(true)
         }
-        val adapter = object : GenericListViewAdapter<String>() {
-            override fun getParentView(item: String, parent: ViewGroup?): View {
-                val v = LayoutInflater.from(parent?.context).inflate(R.layout.layout_menu_list, parent, false)
-                val t : TextView = v.findViewById(R.id.item_title)
-                t.text = item
-                return v
+        grandTotalText.text = formatCurrency(carts.sumByDouble { (it.qty * it.product.price) })
+    }
+
+    override fun onQtyHasChanged(cart: Cart, isIncrement: Boolean) {
+        val updates = arrayListOf<Cart>()
+        updates.addAll(carts)
+
+        val find = updates.find { it.product.id == cart.product.id }
+        find?.let {
+            if (isIncrement) {
+                it.qty += 1
+            } else {
+                it.qty -= 1
             }
-
         }
-
-        adapter.setItems(data)
-        listView.adapter = adapter
+        cartAdapter.setItems(updates)
     }
 }

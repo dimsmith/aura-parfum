@@ -3,15 +3,19 @@ package com.github.dimsmith.auraparfum.components.recyclerview
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.github.dimsmith.auraparfum.components.DiffUtilList
 
 abstract class GenericRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder> :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var _items: List<T> = arrayListOf()
+    protected var _items: List<T> = arrayListOf()
 
     fun setItems(items: List<T>) {
-        this._items = items
-        notifyDataSetChanged()
+        val diffUtil = DiffUtilList(_items, items)
+        val diffResult = DiffUtil.calculateDiff(diffUtil)
+        diffResult.dispatchUpdatesTo(this)
+        _items = items
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
